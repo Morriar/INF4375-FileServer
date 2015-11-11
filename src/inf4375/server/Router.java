@@ -94,6 +94,13 @@ public class Router {
         }
     }
 
+    // Send a HTTP response with a specific content type.
+    public void sendRawResponse(Integer status, String reason, String contentType, String body) {
+        Response response = new Response("HTTP/1.1", status, reason, body);
+        response.headers.put("Content-Type", contentType);
+        response.send(out);
+    }
+
     // Send a HTTP response.
     public void sendResponse(Integer status, String reason, String body) {
         Response response = new Response("HTTP/1.1", status, reason, body);

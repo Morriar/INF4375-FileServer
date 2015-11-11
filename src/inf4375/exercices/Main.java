@@ -19,6 +19,7 @@ import inf4375.model.Catalog;
 import inf4375.model.JsonDAOAlbums;
 import inf4375.server.controllers.AlbumsController;
 import inf4375.server.Router;
+import inf4375.server.controllers.FileServer;
 
 /**
  * Example of REST service based on JSON.
@@ -30,6 +31,7 @@ public class Main {
         Catalog catalog = new Catalog(dao);
         Router router = new Router(8080);
         router.controllers.add(new AlbumsController(catalog));
+        router.controllers.add(new FileServer("public/"));
         router.start();
     }
 }
