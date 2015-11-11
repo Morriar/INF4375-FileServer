@@ -36,7 +36,7 @@ public class AlbumsController extends UriMatchController {
     Catalog catalog;
 
     public AlbumsController(Catalog catalog) {
-        this.uriMatch = "^/albums(/?$|/.*)";
+        this.uriMatch = "^/json/albums(/?$|/.*)";
         this.catalog = catalog;
     }
 
