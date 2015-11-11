@@ -131,6 +131,11 @@ public class Router {
         response.send(out);
     }
 
+    // Send a View as response.
+    public void sendResponse(Integer status, String reason, View view) {
+        sendResponse(status, reason, view.render());
+    }
+
     // Send an HTTP response containing an error message formated with JSON.
     public void sendJsonError(Integer status, String reason) {
         JsonObjectBuilder body = Json.createObjectBuilder();
