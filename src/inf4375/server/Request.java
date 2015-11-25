@@ -68,9 +68,7 @@ public class Request {
         // Parse body
         StringBuilder bodyStr = new StringBuilder();
         while (in.ready()) {
-            line = in.readLine();
-            bodyStr.append(line);
-            bodyStr.append("\n");
+            bodyStr.append((char)in.read());
         }
         if (bodyStr.length() > 0) {
             this.body = bodyStr.toString();
