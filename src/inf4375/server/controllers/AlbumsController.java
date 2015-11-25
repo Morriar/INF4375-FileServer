@@ -96,15 +96,19 @@ public class AlbumsController extends UriMatchController {
     //
     // Display the received album.
     private void actionPostAlbum(Router router, Request request) {
-        JsonReader reader = Json.createReader(new StringReader(request.body));
-        JsonObject obj = reader.readObject();
-        String title = obj.getString("title");
-        String artist = obj.getString("artist");
-        Boolean inStock = obj.getBoolean("instock");
-        Double price = obj.getJsonNumber("price").doubleValue();
-        Integer year = obj.getInt("year");
-        Album album = catalog.createAlbum(title, artist, inStock, price, year);
-        router.sendJsonResponse(201, "Created", album.toJson());
+        try {
+            JsonReader reader = Json.createReader(new StringReader(request.body));
+            JsonObject obj = reader.readObject();
+            String title = obj.getString("title");
+            String artist = obj.getString("artist");
+            Boolean inStock = obj.getBoolean("instock");
+            Double price = obj.getJsonNumber("price").doubleValue();
+            Integer year = obj.getInt("year");
+            Album album = catalog.createAlbum(title, artist, inStock, price, year);
+            router.sendJsonResponse(201, "Created", album.toJson());
+        } catch(Exception e) {
+            router.sendJsonError(400, "Bad Request");
+        }
     }
 
     // Update the existing album with `id`.
