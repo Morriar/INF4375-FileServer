@@ -34,9 +34,7 @@ public class HTMLAlbumTableLine extends HTMLView {
     @Override
     public String renderBody() {
         StringBuilder builder = new StringBuilder();
-        builder.append("<tr onmouseover=\"loadAlbum(");
-        builder.append(album.getId());
-        builder.append(")\">");
+        builder.append("<tr>");
         builder.append(" <td>");
         builder.append(album.getTitle());
         builder.append(" </td>");

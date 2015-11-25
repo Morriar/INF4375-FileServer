@@ -36,8 +36,6 @@ public class HTMLAlbumsController extends UriMatchController {
 
     @Override
     public void action(Router router, Request request) {
-        // TODO Handle more request to edit and add albums
-        // Next week :)
         HTMLAlbumsTable view = new HTMLAlbumsTable("Albums list", catalog);
         router.sendResponse(200, "OK", view);
     }

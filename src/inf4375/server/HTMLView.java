@@ -24,10 +24,10 @@ import java.util.List;
 public class HTMLView implements View {
 
     public String viewTitle;
-    
+
     // CSS files to include in the header
     public List<String> stylesheets = new ArrayList<>();
-    
+
     // JS files to include
     public List<String> javascripts = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class HTMLView implements View {
         builder.append(viewTitle);
         builder.append("  </title>");
         for(String uri: stylesheets) {
-            builder.append("<link media=\"screen\" href=\"");
+            builder.append("<link rel=\"stylesheet\" href=\"");
             builder.append(uri);
             builder.append("\" />");
         }
@@ -59,10 +59,12 @@ public class HTMLView implements View {
         }
         builder.append(" </head>");
         builder.append(" <body>");
-        builder.append("  <h1>");
+        builder.append("  <div class=\"container\">");
+        builder.append("   <h1>");
         builder.append(viewTitle);
-        builder.append("  </h1>");
+        builder.append("   </h1>");
         builder.append(renderBody());
+        builder.append("  </div>");
         builder.append(" </body>");
         builder.append("</html>");
         return builder.toString();

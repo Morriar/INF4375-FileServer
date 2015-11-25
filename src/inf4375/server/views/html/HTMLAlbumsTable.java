@@ -30,13 +30,14 @@ public class HTMLAlbumsTable extends HTMLView {
     public HTMLAlbumsTable(String viewTitle, Catalog catalog) {
         super(viewTitle);
         this.catalog = catalog;
+        this.stylesheets.add("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
         this.javascripts.add("script.js");
     }
 
     @Override
     public String renderBody() {
         StringBuilder builder = new StringBuilder();
-        builder.append("<table>");
+        builder.append("<table class=\"table\">");
         builder.append(" <tr>");
         builder.append("  <th>Title</th>");
         builder.append("  <th>Artist</th>");
@@ -48,8 +49,27 @@ public class HTMLAlbumsTable extends HTMLView {
             builder.append(albumLine.renderBody());
         }
         builder.append("</table>");
-        
-        builder.append("<div id=\"details\">");
+
+        builder.append("<h3>Add a new album</h3>");
+        builder.append("<div id=\"editZone\">");
+        builder.append(" <form id=\"form\" action=\"\">");
+        builder.append(" <dl>");
+        builder.append("  <dt>Title:</dt>");
+        builder.append("  <dd><input type=\"text\" name=\"title\"/></dd>");
+        builder.append("  <dt>Artist:</dt>");
+        builder.append("  <dd><input type=\"text\" name=\"artist\" /></dd>");
+        builder.append("  <dt>Price:</dt>");
+        builder.append("  <dd><input type=\"text\" name=\"price\" /></dd>");
+        builder.append("  <dt>Year:</dt>");
+        builder.append("  <dd><input type=\"text\" name=\"year\" /></dd>");
+        builder.append("  <dt>Status:</dt>");
+        builder.append("  <dd>");
+        builder.append("   <input type=\"radio\" name=\"status\" selected=\"selected\" value=\"1\" /> in stock");
+        builder.append("   <input type=\"radio\" name=\"status\" value=\"0\" /> out of order");
+        builder.append("  </dd>");
+        builder.append(" </dl>");
+        builder.append("<input type=\"submit\" class=\"btn btn-success\" onclick=\"return addAlbum();\">");
+        builder.append(" </form>");
         builder.append("</div>");
         return builder.toString();
     }
