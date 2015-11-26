@@ -1,28 +1,32 @@
-function loadAlbum(id) {
+// POST a new album
+function addAlbum() {
+    var form = document.getElementById("form");
+    var album = {};
+    album.title = form.elements["title"].value;
+    album.artist = form.elements["artist"].value;
+    album.price = parseFloat(form.elements["price"].value);
+    album.year = parseInt(form.elements["year"].value);
+    album.instock = Boolean(parseInt(form.elements["status"].value));
+
+    // TODO we should check data here, before sending them to the server.
+    saveAlbum(album);
+
+    return false;
+}
+
+function saveAlbum(album) {
+    // construct an HTTP request
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', encodeURI('json/albums/' + id));
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-
-            var div = document.getElementById("details");
-            div.innerHTML = "<h3>Album details</h3>" +
-                    "<dl>" +
-                        "<dt>Title:</dt>" +
-                        "<dd>" + json.title + "</dd>" +
-                        "<dt>Artist:</dt>" +
-                        "<dd>" + json.artist + "</dd>" +
-                        "<dt>Price:</dt>" +
-                        "<dd>" + json.price + "</dd>" +
-                        "<dt>Status:</dt>" +
-                        "<dd>" + json.status + "</dd>" +
-                    "</dl>"
-
-        }
-        else {
-            console.log("Request Failed: " + xhr.status);
+    xhr.open("POST", "/json/albums/", true);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if(xhr.status === 201) {
+                alert("Album added");
+            } else {
+                alert("Error: " + xhr.responseText + "(status "+ xhr.status +")")
+            }
         }
     };
-    xhr.send();
+    xhr.send(JSON.stringify(album));
 }
