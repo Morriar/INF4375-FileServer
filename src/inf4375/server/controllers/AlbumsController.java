@@ -24,6 +24,7 @@ import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
@@ -46,7 +47,7 @@ public class AlbumsController extends UriMatchController {
         switch (request.method) {
             case "GET":
                 if (id == null) {
-                    router.sendJsonError(400, "Bad request");
+                    actionGetAllAlbums(router, request);
                     return;
                 }
                 actionGetAlbum(router, request, id);
@@ -80,6 +81,15 @@ public class AlbumsController extends UriMatchController {
             return null;
         }
         return Integer.parseInt(matcher.group(1));
+    }
+
+    // Returns all JSON Objects from the catalog.
+    private void actionGetAllAlbums(Router router, Request request) {
+        JsonArrayBuilder objects = Json.createArrayBuilder();
+        for (Album album : catalog.allAlbums()) {
+            objects.add(album.toJson());
+        }
+        router.sendJsonResponse(200, "OK", objects.build());
     }
 
     // Returns the JSON Object representing the album having `id`.
