@@ -1,3 +1,42 @@
+function loadTable() {
+    // construct an HTTP request
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/json/albums/", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if(xhr.status === 200) {
+                // Parse response
+                var json = JSON.parse(xhr.responseText);
+                var keys = ["title", "artist", "price", "instock"];
+
+                // Get table
+                var tbody = document.getElementById("tableBody");
+
+                // Clear table body
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                // Add table body
+                for(var i in json) {
+                    var obj = json[i];
+                    var tr = document.createElement("tr");
+                    for(var j in keys) {
+                        var k = keys[j];
+                        var td = document.createElement("td");
+                        td.innerHTML = obj[k];
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                }
+            } else {
+                alert("Error: " + xhr.responseText + "(status "+ xhr.status +")")
+            }
+        }
+    };
+    xhr.send();
+}
+
 // POST a new album
 function addAlbum() {
     var form = document.getElementById("form");
@@ -22,7 +61,7 @@ function saveAlbum(album) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if(xhr.status === 201) {
-                alert("Album added");
+                loadTable();
             } else {
                 alert("Error: " + xhr.responseText + "(status "+ xhr.status +")")
             }
