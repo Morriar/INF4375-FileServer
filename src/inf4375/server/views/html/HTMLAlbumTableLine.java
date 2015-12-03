@@ -36,6 +36,11 @@ public class HTMLAlbumTableLine extends HTMLView {
         StringBuilder builder = new StringBuilder();
         builder.append("<tr>");
         builder.append(" <td>");
+        builder.append("  <input type='radio' name='selectedRow' value='");
+        builder.append(album.getId());
+        builder.append("'>");
+        builder.append(" </td>");
+        builder.append(" <td>");
         builder.append(album.getTitle());
         builder.append(" </td>");
         builder.append(" <td>");

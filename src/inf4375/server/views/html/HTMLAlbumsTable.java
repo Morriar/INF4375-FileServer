@@ -37,19 +37,25 @@ public class HTMLAlbumsTable extends HTMLView {
     @Override
     public String renderBody() {
         StringBuilder builder = new StringBuilder();
-        builder.append("<table class=\"table\">");
-        builder.append(" <tr>");
-        builder.append("  <th>Title</th>");
-        builder.append("  <th>Artist</th>");
-        builder.append("  <th>Price</th>");
-        builder.append("  <th>Status</th>");
-        builder.append(" </tr>");
+        builder.append("<table class=\"table\" id=\"albumsTable\">");
+        builder.append(" <thead>");
+        builder.append("  <tr>");
+        builder.append("   <th></th>");
+        builder.append("   <th>Title</th>");
+        builder.append("   <th>Artist</th>");
+        builder.append("   <th>Price</th>");
+        builder.append("   <th>Status</th>");
+        builder.append("  </tr>");
+        builder.append(" </thead>");
+        builder.append(" <tbody id=\"tableBody\">");
         for (Album album : catalog.allAlbums()) {
             HTMLView albumLine = new HTMLAlbumTableLine(viewTitle, album);
             builder.append(albumLine.renderBody());
         }
+        builder.append(" </tbody>");
         builder.append("</table>");
         builder.append("<button class=\"btn btn-success\" onclick=\"return loadTable();\">Refresh table</button> ");
+        builder.append("<button class=\"btn btn-danger\" onclick=\"return deleteAlbum();\">Delete</button>");
 
         builder.append("<h3>Add a new album</h3>");
         builder.append("<div id=\"editZone\">");
