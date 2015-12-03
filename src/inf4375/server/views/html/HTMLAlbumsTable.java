@@ -49,6 +49,7 @@ public class HTMLAlbumsTable extends HTMLView {
             builder.append(albumLine.renderBody());
         }
         builder.append("</table>");
+        builder.append("<button class=\"btn btn-success\" onclick=\"return loadTable();\">Refresh table</button> ");
 
         builder.append("<h3>Add a new album</h3>");
         builder.append("<div id=\"editZone\">");
