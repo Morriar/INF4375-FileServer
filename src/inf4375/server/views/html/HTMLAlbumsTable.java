@@ -52,7 +52,7 @@ public class HTMLAlbumsTable extends HTMLView {
 
         builder.append("<h3>Add a new album</h3>");
         builder.append("<div id=\"editZone\">");
-        builder.append(" <form id=\"form\" action=\"\">");
+        builder.append(" <form id=\"form\">");
         builder.append(" <dl>");
         builder.append("  <dt>Title:</dt>");
         builder.append("  <dd><input type=\"text\" name=\"title\"/></dd>");
@@ -64,7 +64,7 @@ public class HTMLAlbumsTable extends HTMLView {
         builder.append("  <dd><input type=\"text\" name=\"year\" /></dd>");
         builder.append("  <dt>Status:</dt>");
         builder.append("  <dd>");
-        builder.append("   <input type=\"radio\" name=\"status\" selected=\"selected\" value=\"1\" /> in stock");
+        builder.append("   <input type=\"radio\" name=\"status\" checked=\"checked\" value=\"1\" /> in stock");
         builder.append("   <input type=\"radio\" name=\"status\" value=\"0\" /> out of order");
         builder.append("  </dd>");
         builder.append(" </dl>");
