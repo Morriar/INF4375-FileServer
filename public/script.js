@@ -69,3 +69,33 @@ function saveAlbum(album) {
     };
     xhr.send(JSON.stringify(album));
 }
+
+function deleteAlbum() {
+    var radios = document.getElementsByName("selectedRow");
+
+    var id;
+    for(var i in radios) {
+        var radio = radios[i];
+        if(radio.checked) {
+            id = radio.value;
+        }
+    }
+    if(!id) {
+        alert("You must select a row before clicking this button!");
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/json/albums/" + id, true);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if(xhr.status === 200) {
+                loadTable();
+            } else {
+                alert("Error: " + xhr.responseText + "(status "+ xhr.status +")")
+            }
+        }
+    };
+    xhr.send();
+}
